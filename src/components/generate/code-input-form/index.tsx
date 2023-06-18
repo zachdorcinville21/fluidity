@@ -8,6 +8,7 @@ import Lottie from 'react-lottie-player';
 import loadingAnimation from '@/animations/loading-bot.json';
 import { useToast } from '@chakra-ui/react';
 import { CheckIcon } from '@chakra-ui/icons';
+import { motion } from 'framer-motion';
 
 const CodeEditor = dynamic(
   () => import('@uiw/react-textarea-code-editor').then((mod) => mod.default),
@@ -21,6 +22,8 @@ export function CodeInputForm() {
 
   const { height } = useWindowSize();
   const toast = useToast();
+
+  const MotionEditor = motion(CodeEditor);
 
   const onFluidifyClick = async () => {
     setLoading(true);
@@ -85,7 +88,11 @@ export function CodeInputForm() {
           gap="4rem"
           direction={{ base: 'column', lg: 'row' }}
         >
-          <VStack w={{ base: '100%', lg: '50%' }} align="flex-start">
+          <VStack
+            w={{ base: '100%', lg: '50%' }}
+            minH="450px"
+            align="flex-start"
+          >
             <Heading color="#fff" fontSize="1.5rem">
               HTML
             </Heading>
@@ -104,7 +111,11 @@ export function CodeInputForm() {
               }}
             />
           </VStack>
-          <VStack w={{ base: '100%', lg: '50%' }} align="flex-start">
+          <VStack
+            w={{ base: '100%', lg: '50%' }}
+            minH="450px"
+            align="flex-start"
+          >
             <Heading color="#fff" fontSize="1.5rem">
               CSS
             </Heading>

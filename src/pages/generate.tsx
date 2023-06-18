@@ -8,6 +8,7 @@ export default function Generate() {
     <Center
       w="full"
       h={{ base: 'auto', lg: `${height}px` }}
+      minH='100vh'
       bg="background.100"
       px="2rem"
     >

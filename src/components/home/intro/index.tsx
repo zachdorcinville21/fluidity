@@ -14,6 +14,7 @@ export function HomeIntro() {
     <Center
       w="full"
       h={{ base: 'auto', lg: `${height}px` }}
+      minH="100vh"
       py={{ base: '10rem', lg: '2rem' }}
       px="2rem"
     >
