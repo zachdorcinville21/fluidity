@@ -1,12 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { Configuration, OpenAIApi } from 'openai';
+import OpenAI from 'openai';
 
-const config = new Configuration({
+const openai = new OpenAI({
   organization: process.env.OPEN_AI_ORG,
+  project: process.env.OPEN_AI_PROJECT,
   apiKey: process.env.OPEN_AI_API_KEY,
 });
-
-const openai = new OpenAIApi(config);
 
 export default async function handler(
   req: NextApiRequest,
@@ -15,7 +14,7 @@ export default async function handler(
   const { htmlCode, cssCode } = req.body;
 
   try {
-    const result = await openai.createChatCompletion({
+    const result = await openai.chat.completions.create({
       model: 'gpt-3.5-turbo',
       messages: [
         {
@@ -29,11 +28,11 @@ export default async function handler(
         },
       ],
     });
-    if (!result.data.choices[0].message) {
+    if (!result.choices[0].message) {
       res.status(500).json({ error: 'incomplete data returned from AI' });
     } else {
       const dataToReturn = JSON.parse(
-        result.data.choices[0].message.content.replaceAll(`\"`, `"`)
+        result.choices[0].message.content?.replaceAll(`\"`, `"`) as string
       );
       res.status(200).json({ result: dataToReturn });
     }
